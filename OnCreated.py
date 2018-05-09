@@ -19,12 +19,20 @@ ZIPFOLDER = os.environ['HFS']+"/houdini/help/nodes.zip".replace("/",os.sep)
 ARCHIVE = zipfile.ZipFile(ZIPFOLDER, 'r')
    
 def getHeader(path):
-    path = path.replace("operator:","").split("?")[0]
     path = path.lower()
-    nodeHelpContent = ARCHIVE.read(path+".txt")
-    splitted = nodeHelpContent.split("\"\"\"")
-    return splitted[1] if len(splitted)>1 else "Not found"
+    path = path.replace("operator:","").replace("object/","obj/").split("?")[0]
+   
+    if "invalid" in path:
+        return ""
+    
+    try:
+        nodeHelpContent = ARCHIVE.read(path+".txt")
+        splitted = nodeHelpContent.split("\"\"\"")
+        return splitted[1] if len(splitted)>1 else "Not found"
+    except:
+        return "Not found"
 
+        
 def main(kwargs):
 
     node = kwargs["node"]
