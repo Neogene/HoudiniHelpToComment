@@ -10,6 +10,9 @@ HOUDINI 16/16.5
 ## DESCRIPTION: ## 
 When learning Houdini it may be hard to undestand the flow of nodes and to take a sneak peak on the purpose of a single node: a user has to select right click on node -> help and wait for Houdini internal browser to load the help page. This script simply read node headline (the title) from the internal documentation ad uses to populate the node comment.
 
+## RESULTS: ##
+![Script result](https://github.com/Neogene/HoudiniHelpToComment/blob/master/before_after.png)
+
 ## INSTALLATION: ##
 1. place script inside  <$houdini>/scripts/ 
 2. restart Houdini
