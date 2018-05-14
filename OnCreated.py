@@ -17,8 +17,9 @@ import zipfile
 
 ZIPFOLDER = os.environ['HFS']+"/houdini/help/nodes.zip".replace("/",os.sep)
 ARCHIVE = zipfile.ZipFile(ZIPFOLDER, 'r')
-   
+
 def getHeader(path):
+    #print "Path"+path
     path = path.lower()
     path = path.replace("operator:","").replace("object/","obj/").split("?")[0]
    
@@ -30,17 +31,15 @@ def getHeader(path):
         splitted = nodeHelpContent.split("\"\"\"")
         return splitted[1] if len(splitted)>1 else "Not found"
     except:
-        return "Not found"
+       return "Not found"
 
-        
 def main(kwargs):
+    #node = kwargs["node"]
 
-    node = kwargs["node"]
-
-    if len(node.comment())==0 :
+    for node in hou.selectedNodes():
         description = getHeader(node.type().defaultHelpUrl())
-        node.setComment(description)
-        node.setGenericFlag(hou.nodeFlag.DisplayComment,True)
+        if node.isEditable():
+            node.setComment(description)
+            node.setGenericFlag(hou.nodeFlag.DisplayComment,True)
     
-
 main(kwargs)
